@@ -10,7 +10,7 @@ resource "aws_lb" "ingress" {
 
   tags = {
     Terraform = "true"
-    Name = "ingress-alb"
+    Name      = "ingress-alb"
   }
 }
 
@@ -33,24 +33,24 @@ resource "aws_lb_listener" "ingress" {
 }
 
 resource "aws_lb_target_group" "ingress" {
-  name        = "ingress-tg"
-  port        = 80
-  protocol    = "HTTP"
-  target_type = "ip"
-  vpc_id      = local.vpc_id
+  name                 = "ingress-tg"
+  port                 = 80
+  protocol             = "HTTP"
+  target_type          = "ip"
+  vpc_id               = local.vpc_id
   deregistration_delay = 60
 
-    health_check {
-        interval = 10
-        path = "/"
-        port = 80
-        protocol = "HTTP"
-        timeout = 2
-        healthy_threshold = 2
-        unhealthy_threshold = 3
-        matcher = "200-299"
+  health_check {
+    interval            = 10
+    path                = "/"
+    port                = 80
+    protocol            = "HTTP"
+    timeout             = 2
+    healthy_threshold   = 2
+    unhealthy_threshold = 3
+    matcher             = "200-299"
 
-    }
+  }
 }
 
 resource "aws_lb_listener_rule" "ingress" {
@@ -74,7 +74,7 @@ resource "aws_route53_record" "record" {
   zone_id = var.zone_id
   name    = "${var.project}-${var.environment}.${var.domain_name}"
   type    = "A"
-  
+
   # load balancer details
   alias {
     name                   = aws_lb.ingress.dns_name
