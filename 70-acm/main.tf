@@ -3,9 +3,9 @@ resource "aws_acm_certificate" "roboshop" {
   validation_method = "DNS"
 
   tags = {
-        Name = "${var.project}-${var.environment}-${var.domain_name}"
+    Name = "${var.project}-${var.environment}-${var.domain_name}"
 
-    }
+  }
   lifecycle {
     create_before_destroy = true
   }
